@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 // Status route to confirm server is up
 app.get('/', (req, res) => {
-    res.json({
+    res.json({ 
         status: "Server is running",
         environment: process.env.NODE_ENV || "development"
     });
@@ -43,7 +43,7 @@ const userRoutes = require('./routes/user.routes');
 
 app.use('/api/v1', userRoutes);
 
-Serve React frontend in production
+//Serve React frontend in production
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
 

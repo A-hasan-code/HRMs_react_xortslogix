@@ -4,13 +4,15 @@ const path = require('path');
 //destination for the uploaded files
 const storage = multer .diskStorage({
     destination: (req, file, cb) => {
-        const dir = path.join(__dirname, '../public/uploads');
+        const dir = path.join(__dirname, '../public/uploads/profile_pictures');
         cb(null, dir);
     },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-    }
+   filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const userId = req.user ? req.user._id : Date.now(); // fallback if user not in req
+    const fileName = `profile_picture-${userId}${ext}`;
+    cb(null, fileName);
+  }
 })
 
 //file filter
